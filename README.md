@@ -56,4 +56,6 @@ for ( bridge_gep_iterator gi = bridge_gep_begin(*V), ge = bridge_gep_end(*V); gi
   } 
 ```
 
+When this is irrelevant obviously just remove the header and take out the iterator usage and so this out to allow for functionality to continue, easing overall maintenance with @head.
+
 Hope this is helpful...
