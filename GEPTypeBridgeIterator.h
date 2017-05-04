@@ -75,7 +75,7 @@ namespace llvm {
  
     generic_bridge_gep_type_iterator& operator++() {
       if ( CurTy.getInt() ) {
-
+	CurTy.setInt(false);
       } else if ( CompositeType * CT = dyn_cast<CompositeType>(CurTy.getPointer()) ) {
 	CurTy.setPointer(CT->getTypeAtIndex(getOperand()));
       } else {

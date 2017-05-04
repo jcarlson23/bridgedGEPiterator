@@ -27,6 +27,7 @@ inline const llvm::ConstantExpr *isGepConstantExpr(const llvm::Value *val) {
     if(constExpr->getOpcode() == llvm::Instruction::GetElementPtr)
       return constExpr;
   }
+  outs() << "\n";
   return NULL;
 }
 
@@ -37,6 +38,7 @@ bool computeGepOffset( const llvm::User * V ) {
     gi.getIndexedType()->dump();
     gi.getOperand()->dump();
   }
+  outs() << "\n";
   return true;
 }
 
@@ -73,16 +75,17 @@ int main(int argc, char **argv) {
   for ( auto FS = M->begin(), FE = M->end(); FS != FE; FS++ ) {
     for ( auto BS = FS->begin(), BE = FS->end(); BS != BE; BS++ ) {
       for ( auto IS = BS->begin(), IE = BS->end(); IS != IE; IS++ ) {
-	IS->dump();
 
+	IS->dump();
 	
 	const GetElementPtrInst * gep = dyn_cast<GetElementPtrInst>(IS);
 	const Constant * ref = dyn_cast<Constant>(IS);
 
 	if ( gep ) {
-	  outs() << "Use the 4.0 IndexedType()\n";
+	  outs() << "[-] Using the 4.0 IndexedType()\n";
 	  computeGepOffset( gep );
-	  outs() << "Compare with our bridged implementation\n";
+
+	  outs() << "[+] Compare with our bridged implementation\n";
 	  computeBridgedOffset( gep );
 	}
 	// end of actual iteration
